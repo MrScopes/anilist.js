@@ -1,0 +1,25 @@
+{
+  "name": "anilist.js",
+  "version": "1.0.0",
+  "description": "Communicate with the AniList API.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "tsc && node dist/test.js"
+  },
+  "keywords": [
+    "anime",
+    "anilist",
+    "typescript"
+  ],
+  "repository": "https://github.com/MrScopes/anilist.js",
+  "author": "MrScopes",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.5.7",
+    "dotenv": "^8.2.0"
+  }
+}
