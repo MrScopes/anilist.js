@@ -1,6 +1,6 @@
-import Client from '../..';
+import { Client } from '../..';
 import { Character } from '../../types/types';
-import { CharacterFavorite } from '../../queries/mutations/character/CharacterFavorite';
+import { CharacterFavorite } from '../../queries/mutations';
 
 /** Represents an Anime or Manga Character. */
 export class CharacterStructure {
@@ -19,10 +19,6 @@ export class CharacterStructure {
      */
     async favourite() {
         if (!this.client?.token) throw new Error('This feature requires you to be logged in.');
-
-        const json = await this.client.utilities.APIRequest(CharacterFavorite, { id: this.info.id }, this.client);
-        if (json.errors) throw new Error(JSON.stringify(json.errors));
-
-        return json;
+        return await this.client.utilities.APIRequest(CharacterFavorite, { id: this.info.id }, this.client);
     }
 }

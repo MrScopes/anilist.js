@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import Client from '.';
+import { Client } from '..';
 
 export default class Utilities {
     async APIRequest(query: string, variables: object, client: Client) {
@@ -17,6 +17,8 @@ export default class Utilities {
 		const req = await fetch(url, options);
 
 		const json = await req.json();
-		return !json.errors ? (json.data.Character || json.data.Media || json.data.Page || json.data.User || json.data.Studio || json.data.Staff || json.data.Viewer) || json : json;
+		if (json.errors) throw new Error(JSON.stringify(json.errors));
+		
+		return (json.data.Character || json.data.Media || json.data.Page || json.data.User || json.data.Studio || json.data.Staff || json.data.Viewer);
     }
 }

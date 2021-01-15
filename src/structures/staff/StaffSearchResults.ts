@@ -1,4 +1,4 @@
-import Client from '../..';
+import { Client } from '../..';
 import { PageInfo } from '../../types/types';
 import { StaffStructure } from './StaffStructure';
 

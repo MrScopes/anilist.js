@@ -9,7 +9,7 @@ Create an issue on the repo or contact me on Discord @MrScopes#5548
 
 ## Example
 ```js
-const Client = require('anilist-js');
+const { Client } = require('anilist-js');
 const AniList = new Client('API TOKEN'); // token is only required for some features
 
 (async () => {
@@ -55,16 +55,16 @@ _Italics_ represents authorization required.
     <br><br>    
     - `Media >`
         - .info
-        - _.update(variables)_
+        - _.updateEntry(variables)_
+        - _.deleteEntry()_
         - _.favourite()_
     <br><br>    
     - `Character >`
         - .info
         - _.favourite()_
     <br><br>
-    - _`Viewer >`_ represents the current authorized user
-        - _.info_
-        - _.update(variables)_
+    - _`Viewer (EXTENDS User) >`_ represents the current authorized user
+        - _.updateUser(variables)_
     - `User >`
         - .info
         - _.follow()_
@@ -75,7 +75,7 @@ _Italics_ represents authorization required.
     <br><br>    
     - `Studio >`
         - .info
-        - .favourite()              
+        - _.favourite()_              
 
 ## Notes:
 - This is my first large npm module. So some things might not work 100% as intended.

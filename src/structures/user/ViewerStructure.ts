@@ -1,16 +1,12 @@
-import Client from '../..';
-import { ViewerUpdate } from '../../queries/mutations/user/viewer/ViewerUpdate';
-import { MutationUpdateUserArgs, User } from '../../types/types';
+import { Client } from '../..';
+import { ViewerUpdate } from '../../queries/mutations';
+import { MutationUpdateUserArgs } from '../../types/types';
+import { UserStructure } from './UserStructure';
 
 /** Represents the client user. */
-export class ViewerStructure {
-    info: User;
-    client?: Client;
-
+export class ViewerStructure extends UserStructure {
     constructor(json: any, client: Client) {
-        if (json.errors) throw new Error(JSON.stringify(json.errors));
-        this.info = json;
-        if (client.token) this.client = client;
+        super(json, client);
     }
 
     /**
@@ -18,14 +14,10 @@ export class ViewerStructure {
      * Requires you to be logged in.
      * @param entry what to update
      * @example
-     * .update({ about: 'Hi' });
+     * .updateUser({ about: 'Hi' });
      */
-    async update(entry: MutationUpdateUserArgs) {
+    async updateUser(entry: MutationUpdateUserArgs) {
         if (!this.client?.token) throw new Error('This feature requires you to be logged in.');
-
-        const json = await this.client.utilities.APIRequest(ViewerUpdate, entry, this.client);
-        if (json.errors) throw new Error(JSON.stringify(json.errors));
-
-        return json;
+        return await this.client.utilities.APIRequest(ViewerUpdate, entry, this.client);
     }
 }

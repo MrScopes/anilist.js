@@ -1,5 +1,5 @@
-import Client from '../..';
-import { UserFollow } from '../../queries/mutations/user/UserFollow';
+import { Client } from '../..';
+import { UserFollow } from '../../queries/mutations';
 import { User } from '../../types/types';
 
 /** Represents an AniList User. */
@@ -19,10 +19,6 @@ export class UserStructure {
      */
     async follow() {
         if (!this.client?.token) throw new Error('This feature requires you to be logged in.');
-
-        const json = await this.client.utilities.APIRequest(UserFollow, { userId: this.info.id }, this.client);
-        if (json.errors) throw new Error(JSON.stringify(json.errors));
-
-        return json;
+        return this.client.utilities.APIRequest(UserFollow, { userId: this.info.id }, this.client);
     }
 }

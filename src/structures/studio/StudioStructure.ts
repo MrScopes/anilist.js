@@ -1,5 +1,5 @@
-import Client from '../..';
-import { StudioFavorite } from '../../queries/mutations/studio/StudioFavourite';
+import { Client } from '../..';
+import { StudioFavorite } from '../../queries/mutations';
 import { Studio } from '../../types/types';
 
 /** Represents an Animation or production company. */
@@ -19,10 +19,6 @@ export class StudioStructure {
      */
     async favourite() {
         if (!this.client?.token) throw new Error('This feature requires you to be logged in.');
-
-        const json = await this.client.utilities.APIRequest(StudioFavorite, { id: this.info.id }, this.client);
-        if (json.errors) throw new Error(JSON.stringify(json.errors));
-
-        return json;
+        return await this.client.utilities.APIRequest(StudioFavorite, { id: this.info.id }, this.client);
     }  
 }
