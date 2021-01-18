@@ -14,5 +14,6 @@
 		"strict": true,
 		"esModuleInterop": true,
 		"emitDecoratorMetadata": true,
+		"importHelpers": true
 	}
 }

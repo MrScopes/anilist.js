@@ -4,6 +4,7 @@ import { Client } from './index';
 const AniList = new Client(process.env.token);
 
 (async function () {
-    const media = await AniList.searchMedia({ genre_in: ['ACTION'] });
-    console.log(media);
+    const user = await AniList.me();
+    const stats = await user.getStats();
+    console.log(stats);
 })();

@@ -914,6 +914,243 @@ query ($id: Int) {
   }
 `
 
+export const UserStatsQuery = `
+query ($id: Int) {
+  User(id: $id) {
+    statistics {
+      anime {
+        count
+        meanScore
+        standardDeviation
+        minutesWatched
+        episodesWatched
+        chaptersRead
+        volumesRead
+        formats {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          format
+        }
+        statuses {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          status
+        }
+        scores {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          score
+        }
+        lengths {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          length
+        }
+        releaseYears {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          releaseYear
+        }
+        startYears {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          startYear
+        }
+        genres {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          genre
+        }
+        tags {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          tag {
+            id
+          }
+        }
+        countries {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          country
+        }
+        voiceActors {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          voiceActor {
+            id
+          }
+          characterIds
+        }
+        staff {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          staff {
+            id
+          }
+        }
+        studios {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          studio {
+            id
+          }
+        }
+      }
+      manga {
+        count
+        meanScore
+        standardDeviation
+        minutesWatched
+        episodesWatched
+        chaptersRead
+        volumesRead
+        formats {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          format
+        }
+        statuses {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          status
+        }
+        scores {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          score
+        }
+        lengths {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          length
+        }
+        releaseYears {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          releaseYear
+        }
+        startYears {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          startYear
+        }
+        genres {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          genre
+        }
+        tags {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          tag {
+            id
+          }
+        }
+        countries {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          country
+        }
+        voiceActors {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          voiceActor {
+            id
+          }
+          characterIds
+        }
+        staff {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          staff {
+            id
+          }
+        }
+        studios {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          studio {
+            id
+          }
+        }
+      }
+    }
+  }
+}
+`
+
 export const UserSearchQuery = `
 query ($id: Int, $name: String, $search: String, $sort: [UserSort], $page: Int, $perPage: Int) {
     Page(page: $page, perPage: $perPage) {

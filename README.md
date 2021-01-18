@@ -9,7 +9,7 @@ Create an issue on the repo or contact me on Discord @MrScopes#5548
 
 ## Example
 ```js
-const { Client } = require('anilist-js');
+const { Client } = require('anilist.js');
 const AniList = new Client('API TOKEN'); // token is only required for some features
 
 (async () => {
@@ -40,7 +40,7 @@ _Italics_ represents authorization required.
     <br><br>
     - _`.me()`_ -> Currently authorized user
     - `.getUser(id)`
-     - `.searchUsers(variables)`
+    - `.searchUsers(variables)`
     <br><br>
     - `.getStaff(id)`
     - `.searchStaff(variables)`
@@ -68,6 +68,7 @@ _Italics_ represents authorization required.
     - `User >`
         - .info
         - _.follow()_
+        - .getStats()
     <br><br>    
     - `Staff >`
         - .info

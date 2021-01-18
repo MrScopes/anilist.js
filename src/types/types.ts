@@ -795,8 +795,10 @@ export type User = {
   mediaListOptions?: Maybe<MediaListOptions>;
   /** The users favourites */
   favourites?: Maybe<Favourites>;
-  /** The users anime & manga list statistics */
-  statistics?: Maybe<UserStatisticTypes>;
+  /** The users anime & manga list statistics
+   * 
+   * **NOTE: USE <User>.getStats() for this!** */
+  statistics?: null; //Maybe<UserStatisticTypes>;
   /** The number of unread notifications the user has */
   unreadNotificationCount?: Maybe<Scalars['Int']>;
   /** The url for the user page on the AniList website */

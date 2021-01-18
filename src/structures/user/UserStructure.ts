@@ -1,6 +1,7 @@
 import { Client } from '../..';
 import { UserFollow } from '../../queries/mutations';
-import { User } from '../../types/types';
+import { UserStatsQuery } from '../../queries/queries';
+import { User, UserStatisticTypes } from '../../types/types';
 
 /** Represents an AniList User. */
 export class UserStructure {
@@ -20,5 +21,10 @@ export class UserStructure {
     async follow() {
         if (!this.client?.token) throw new Error('This feature requires you to be logged in.');
         return this.client.utilities.APIRequest(UserFollow, { userId: this.info.id }, this.client);
+    }
+
+    /** Get this user's AniList stats. */
+    async getStats(): Promise<UserStatisticTypes> {
+        return this.client?.utilities.APIRequest(UserStatsQuery, { id: this.info.id }, this.client)
     }
 }
