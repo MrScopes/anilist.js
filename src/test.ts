@@ -1,4 +1,4 @@
-import { Client } from './index';
+import { Client, Media } from './index';
 const client = new Client();
 
 (async () => {
