@@ -1,3 +1,5 @@
+# V1 IS NO LONGER MAINTAINED! CHECK OUT THE V2 BRANCH! https://github.com/MrScopes/anilist.js/tree/v2
+
 ![](https://nodei.co/npm/anilist.js.png?downloads=true)\
 NPM module for communicating with Anilist.\
 Find any bugs or have any suggestions?\
