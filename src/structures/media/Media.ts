@@ -31,7 +31,7 @@ export class Media {
     constructor(json: any, client: Client) {
         this.client = client;
 
-        const media = json.Media;
+        const media = json.Media || json;
 
         this.id = media.id;
         this.title = media.title;

@@ -15,26 +15,10 @@ export class MediaSearchResults {
     constructor(json: any, client: Client) {
         this.client = client;
 
-        const media = json.Page;
+        const media = json.Page || json;
 
         this.pageInfo = media.pageInfo;
-        this.results = media.results;
 
-        for (const result in this.results) {
-            if (this.results[0].studios) {
-                let studios = media.results[result].studios.edges;
-    
-                for (const index in studios) {
-                    const studio = studios[index].node;
-                    if (studio) studios[index] = { 
-                        id: studio.id, 
-                        name: studio.name, 
-                        isMain: studios[index].isMain 
-                    };
-                }
-                
-                this.results[result].studios = studios;
-            }
-        }
+        this.results = media.results.map(result => new Media(result, client));
     }
 }

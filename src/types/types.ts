@@ -2,6 +2,8 @@ import { Tag } from './Tag'
 import { Genre } from './Genre';
 
 export type MediaSearchVariables = {
+	page?: number;
+	perPage?: number;
 	id?: number;
 	idMal?: number;
 	startDate?: FuzzyDate;
