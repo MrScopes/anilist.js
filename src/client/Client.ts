@@ -1,7 +1,10 @@
 import { BaseClient } from './BaseClient';
-import { Media } from '../structures/Media';
+import { Media } from '../structures/media/Media';
 
 import * as Queries from '../queries/queries';
+
+import { MediaSearchVariables } from '../types/types';
+import { MediaSearchResults } from '../structures/media/MediaSearchResults';
 
 /** Represents an anilist.js Client. */
 export class Client extends BaseClient {
@@ -22,4 +25,15 @@ export class Client extends BaseClient {
         const req = await this.APIRequest(Queries.MediaQuery, { id });
         return new Media(req, this);
     }
+
+	/**
+	 * Gets the media with the maching variables.
+	 * @param variables filter variables
+	 * @example
+	 * .searchMedia({ format: 'OVA', includedTags: ['Body Horror'] })
+	 */
+	async searchMedia(variables: MediaSearchVariables) {
+		const json = await this.APIRequest(Queries.MediaSearchQuery, variables);
+		return new MediaSearchResults(json, this);
+	}
 }

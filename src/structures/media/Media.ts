@@ -1,4 +1,4 @@
-import { Client } from '../client/Client';
+import { Client } from '../../client/Client';
 
 export class Media {
     /** The anilist.js Client */
@@ -6,7 +6,7 @@ export class Media {
 
     /** The media's id */
     id: number;
-    /** The media's title */
+    /** The media's titles */
     title: { 
         /** Romaji Title */
         romaji: string;
@@ -41,7 +41,11 @@ export class Media {
 
             for (const index in studios) {
                 const studio = studios[index].node;
-                if (studio) studios[index] = { id: studio.id, name: studio.name, isMain: studios[index].isMain };
+                if (studio) studios[index] = { 
+                    id: studio.id, 
+                    name: studio.name, 
+                    isMain: studios[index].isMain 
+                };
             }
             
             this.studios = studios;
