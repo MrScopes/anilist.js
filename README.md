@@ -1,5 +1,3 @@
-**UNPUBLISHED AND INCOMPLETE! VERSION 1.2 IS PUBLISHED.**
-
 ![Downloads](https://img.shields.io/npm/dt/anilist.js) ![Dependences](https://img.shields.io/david/MrScopes/anilist.js)
 
 ![](https://nodei.co/npm/anilist.js.png)
@@ -21,19 +19,7 @@ anilist.js was originally created for [AniSearch](https://github.com/MrScopes/An
     - An API Key isn't required but is required for certain methods such as `Media#updateEntry()`.
     - Getting your API Key is a somewhat difficult process, so I made an easy, open-source website for getting it: https://anilist-token.glitch.me. It's hosted on glitch so you know 100% the code is safe.
 - Exported Types
-    - All structures are exported.
-    - Example Usage:
-        ```ts
-        import { Client, Media } from 'anilist.js';
-        const client = new Client();
-
-        client.getMedia(1).then(media => logMediaTitle(media));
-
-        function logMediaTitle(media: Media) {
-            console.log(media.title.romaji);
-        }
-        ```
-        since the structure is exported, it's technically possible to parse your own information, but there's no real benefit to this.
+    - All structures are exported, check src/index for everything that is exported.
 - v1 -> v2
     - v1 code will remain on the v1 branch permanently. this process repeats with v2, and so forth. master will always contain the current version.
     - anilist.js now operates under an MIT license.
@@ -43,29 +29,26 @@ anilist.js was originally created for [AniSearch](https://github.com/MrScopes/An
     - a lot of stuff is streamlined:
         - manually typed interfaces
         - edges and nodes reduced to simple arrays, example `.studios.edges.nodes[0].id` is `.studios[0].id`
-        - Utilities#APIRequest now returns the json and is handled in each structure, instead of \<Response>.\<DataType>
-        - Media#info.property, Character#info.property, etc. has been reduced to Media#property
+        - APIRequest now returns the json and is handled in each structure, instead of \<Response>.\<DataType>
+        - Media#info.property, Character#info.property, etc. has been reduced to Media#property, ex:
+        ```ts
+        client.getMedia(1).then(media => console.log(media.title)) // instead of console.log(media.info.title)
+        ```
 
 
 ## Example Usage
-the `Client` class from the module must be constructed before you can use anything.
 ```js
 import { Client } from 'anilist.js';
 const client = new Client(/* Valid API Token (Optional) */);
-```
-- Get information from a specific ID:
-    ```ts
-    client.getMedia(1).then(media => console.log(media));
-    
-    // or with await, note: the rest of the examples will use async
-    (async () => {
-            const media = await client.getMedia(1);
-            console.log(media);
-    })();
-    ```
-- Search all Media from a specific title:
-    ```ts
+
+(async () => {
+
     const search = await client.searchMedia({ search: 'My Hero Academia' });
+
     console.log(search.results.map(result => result.title.english || result.title.romaji));
     // ['My Hero Academia', 'My Hero Academia Season 2', ...]
-    ```
+
+    search.results[0].favourite(); // requires api token in client constructor, or pass in method as .favourite({ token: xxx })
+
+})();
+```
