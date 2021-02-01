@@ -22,18 +22,18 @@ export class Client extends BaseClient {
      * @param id The Media's ID.
      */
     async getMedia(id: number) {
-        const req = await this.APIRequest(Queries.MediaQuery, { id });
-        return new Media(req, this);
+        const data = await this.APIRequest(Queries.MediaQuery, { id });
+        return new Media(data, this);
     }
 
-	/**
-	 * Gets the media with the maching variables.
-	 * @param variables filter variables
-	 * @example
-	 * .searchMedia({ format: 'OVA', includedTags: ['Body Horror'] })
-	 */
-	async searchMedia(variables: MediaSearchVariables) {
-		const json = await this.APIRequest(Queries.MediaSearchQuery, variables);
-		return new MediaSearchResults(json, this);
-	}
+    /**
+    * Gets the media with the maching variables.
+    * @param variables filter variables
+    * @example
+    * .searchMedia({ format: 'OVA', includedTags: ['Body Horror'] })
+    */
+    async searchMedia(variables: MediaSearchVariables) {
+        const data = await this.APIRequest(Queries.MediaSearchQuery, variables);
+        return new MediaSearchResults(data, this);
+    }
 }

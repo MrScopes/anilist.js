@@ -17,7 +17,7 @@ export class BaseClient {
      * @param query 
      * @param variables 
      */
-    async APIRequest(query: string, variables: object) {
+    async APIRequest(query: string, variables: any) {
         const url = 'https://graphql.anilist.co', options = {
 			method: 'POST',
 			headers: { 
@@ -34,6 +34,6 @@ export class BaseClient {
 		const json = await req.json();
 		if (json.errors) throw new Error(JSON.stringify(json.errors));
         
-        return json.data;
+        return (json.data.Character || json.data.Media || json.data.Page || json.data.User || json.data.Studio || json.data.Staff || json.data.Viewer);
     }
 }

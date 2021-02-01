@@ -1,54 +1,84 @@
-import { Client } from '../../client/Client';
+import { Client, Genre, Tag } from '../..';
+
+import { MediaGenres, MediaStudios, MediaTags, MediaMeta } from '../../queries/queries';
+import { FuzzyDate, MediaFormat, MediaSeason, MediaStatus } from '../../types/types';
 
 export class Media {
-    /** The anilist.js Client */
     client: Client;
 
-    /** The media's id */
     id: number;
-    /** The media's titles */
     title: { 
-        /** Romaji Title */
         romaji: string;
-        /** English title */
         english?: string;
-        /** Native title */
         native?: string;
-        /** User preferred title */
         userPreferred?: string
     }
-    /** The media's studios */
-    studios?: {
-        /** The studio's id */
-        id: number;
-        /** The studio's name */
-        name: string;
-        /** If this studio is a main studio of the media. */
-        isMain: boolean;
-    }[]
 
-    /** Represents an AniList Media. */
-    constructor(json: any, client: Client) {
+    /** Represents an AniList Anime or Manga. */
+    constructor(data: any, client: Client) {
         this.client = client;
 
-        const media = json.Media || json;
+        this.id = data.id;
+        this.title = data.title;
+    }
 
-        this.id = media.id;
-        this.title = media.title;
-        
-        if (media.studios) {
-            let studios = media.studios.edges;
+    /** Get `description`, `format`, `status`, `coverImage`, `startDate`, `endDate`, `season`, and `seasonYear`. */
+    async getMeta(): Promise<{
+        description: string;
+        format: MediaFormat;
+        status: MediaStatus;
+        coverImage: {
+            extraLarge: string; 
+            large: string;
+            medium: string;
+            color: string;
+        };
+        bannerImage: string;
+        startDate: FuzzyDate;
+        endDate: FuzzyDate;
+        season: MediaSeason;
+        seasonYear: number;
+    }> {
+        return await this.client.APIRequest(MediaMeta, { id: this.id });
+    }
 
-            for (const index in studios) {
-                const studio = studios[index].node;
-                if (studio) studios[index] = { 
-                    id: studio.id, 
-                    name: studio.name, 
-                    isMain: studios[index].isMain 
-                };
-            }
-            
-            this.studios = studios;
+    /** Get this Media's studios. */
+    async getStudios(): 
+        Promise<{
+            id: number;
+            name: string;
+            /** If the studio is a main studio for this media. */
+            isMain: boolean;
+        }[]> {
+
+        const data = await this.client.APIRequest(MediaStudios, { id: this.id });
+
+        const studios = data.studios.edges;
+
+        for (const index in studios) {
+            const studio = studios[index].node;
+            if (studio) studios[index] = { 
+                id: studio.id, 
+                name: studio.name, 
+                isMain: studios[index].isMain 
+            };
         }
+        
+        return studios;
+    }
+
+    /** Get this Media's genres. */
+    async getGenres(): Promise<Genre[]> {
+        return (await this.client.APIRequest(MediaGenres, { id: this.id })).genres;
+    }
+
+    /** Get this Media's tags. */
+    async getTags(): 
+        Promise<{
+            name: Tag;
+            isMediaSpoiler: boolean;
+        }[]> {
+
+        return (await this.client.APIRequest(MediaTags, { id: this.id })).tags;
     }
 }
