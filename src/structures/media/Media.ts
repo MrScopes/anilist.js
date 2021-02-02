@@ -1,6 +1,6 @@
 import { Client, Genre, Tag } from '../..';
 
-import { MediaGenres, MediaStudios, MediaTags, MediaMeta } from '../../queries/queries';
+import { MediaGenres, MediaStudios, MediaTags, MediaMeta, MediaEntryQuery } from '../../queries/MediaQueries';
 import { FuzzyDate, MediaFormat, MediaSeason, MediaStatus } from '../../types/types';
 
 export class Media {
@@ -11,8 +11,13 @@ export class Media {
         romaji: string;
         english?: string;
         native?: string;
-        userPreferred?: string
+        userPreferred: string
     }
+    format: MediaFormat;
+    seasonYear: number;
+    episodes?: number;
+    chapters?: number;
+    volumes?: number;
 
     /** Represents an AniList Anime or Manga. */
     constructor(data: any, client: Client) {
@@ -20,12 +25,16 @@ export class Media {
 
         this.id = data.id;
         this.title = data.title;
+        if (data.format) this.format = data.format;
+        if (data.seasonYear) this.seasonYear = data.seasonYear;
+        if (data.episodes) this.episodes = data.episodes;
+        if (data.chapters) this.chapters = data.chapters;
+        if (data.volumes) this.volumes = data.volumes;
     }
 
-    /** Get `description`, `format`, `status`, `coverImage`, `startDate`, `endDate`, `season`, and `seasonYear`. */
+    /** Get some missing useful info. */
     async getMeta(): Promise<{
         description: string;
-        format: MediaFormat;
         status: MediaStatus;
         coverImage: {
             extraLarge: string; 
@@ -37,9 +46,8 @@ export class Media {
         startDate: FuzzyDate;
         endDate: FuzzyDate;
         season: MediaSeason;
-        seasonYear: number;
     }> {
-        return await this.client.APIRequest(MediaMeta, { id: this.id });
+        return await this.client.utilities.APIRequest(MediaMeta, { id: this.id });
     }
 
     /** Get this Media's studios. */
@@ -47,11 +55,10 @@ export class Media {
         Promise<{
             id: number;
             name: string;
-            /** If the studio is a main studio for this media. */
             isMain: boolean;
         }[]> {
 
-        const data = await this.client.APIRequest(MediaStudios, { id: this.id });
+        const data = await this.client.utilities.APIRequest(MediaStudios, { id: this.id });
 
         const studios = data.studios.edges;
 
@@ -69,7 +76,7 @@ export class Media {
 
     /** Get this Media's genres. */
     async getGenres(): Promise<Genre[]> {
-        return (await this.client.APIRequest(MediaGenres, { id: this.id })).genres;
+        return (await this.client.utilities.APIRequest(MediaGenres, { id: this.id })).genres;
     }
 
     /** Get this Media's tags. */
@@ -79,6 +86,15 @@ export class Media {
             isMediaSpoiler: boolean;
         }[]> {
 
-        return (await this.client.APIRequest(MediaTags, { id: this.id })).tags;
+        return (await this.client.utilities.APIRequest(MediaTags, { id: this.id })).tags;
     }
+
+    /**
+     * Get the current user's media entry id for this media.
+     * @param token the user token, defaults to client token.
+     */
+    async getMediaEntry(token?: string): Promise<number> {
+        return (await this.client.utilities.APIRequest(MediaEntryQuery, { id: this.id }, token || this.client.token)).mediaListEntry;  
+    }
+
 }

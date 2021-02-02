@@ -8,6 +8,11 @@ query ($id: Int) {
         native
         userPreferred
 	  }
+	  format
+	  seasonYear
+	  chapters
+	  episodes
+	  volumes
     }
   }  
 `;
@@ -97,4 +102,14 @@ query ($search: String, $page: Int, $perPage: Int, $sort: [MediaSort], $type: Me
 		}
 	}
 }
+`;
+
+export const MediaEntryQuery = `
+query ($id: Int) {
+	Media(id: $id) {
+	  mediaListEntry {
+		id
+	  }
+	}
+  }  
 `;

@@ -3,8 +3,6 @@ import { PageInfo } from '../../types/types';
 import { Media } from './Media';
 
 export class MediaSearchResults {
-    client: Client;
-
     pageInfo: PageInfo;
     results: Media[];
 

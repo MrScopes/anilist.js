@@ -1,20 +1,25 @@
-import { BaseClient } from './BaseClient';
-import { Media } from '../structures/media/Media';
+import { Utilities } from './Utilities';
 
-import * as Queries from '../queries/queries';
+import { Media, MediaSearchResults, MediaSearchVariables } from '..';
 
-import { MediaSearchVariables } from '../types/types';
-import { MediaSearchResults } from '../structures/media/MediaSearchResults';
+import { MediaQuery, MediaSearchQuery } from '../queries/MediaQueries';
 
 /** Represents an anilist.js Client. */
-export class Client extends BaseClient {
+export class Client {
+    /** The Client's token. */
+    token?: string;
+
+    /** The Client's utilities. */
+    utilities: Utilities;
+
     /**
      * Creates a new Client.\
      * You can get your Api Token @ https://anilist-token.glitch.me/
      * @param token Client's AniList token.
      */
     constructor(token?: string) {
-        super(token);
+        if (token) this.token = token;
+        this.utilities = new Utilities();
     }
 
     /**
@@ -22,7 +27,7 @@ export class Client extends BaseClient {
      * @param id The Media's ID.
      */
     async getMedia(id: number) {
-        const data = await this.APIRequest(Queries.MediaQuery, { id });
+        const data = await this.utilities.APIRequest(MediaQuery, { id });
         return new Media(data, this);
     }
 
@@ -33,7 +38,7 @@ export class Client extends BaseClient {
     * .searchMedia({ format: 'OVA', includedTags: ['Body Horror'] })
     */
     async searchMedia(variables: MediaSearchVariables) {
-        const data = await this.APIRequest(Queries.MediaSearchQuery, variables);
+        const data = await this.utilities.APIRequest(MediaSearchQuery, variables);
         return new MediaSearchResults(data, this);
     }
 }

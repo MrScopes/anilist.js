@@ -1,6 +1,9 @@
 import { Tag } from './Tag'
 import { Genre } from './Genre';
 
+export { Tag };
+export { Genre };
+
 export type MediaSearchVariables = {
 	page?: number;
 	perPage?: number;
@@ -27,7 +30,7 @@ export type MediaSearchVariables = {
 	averageScore?: number;
 	popularity?: number;
 	source?: MediaSource;
-	countryOfOrigin?: ['CountryCode'];
+	countryOfOrigin?: number;
 	search?: string;
 	id_not?: number;
 	id_in?: number[];
@@ -35,11 +38,11 @@ export type MediaSearchVariables = {
 	idMal_not?: number;
 	idMal_in?: number[];
 	idMal_not_in?: number[];
-	startDate_greater?: ['FuzzyDateInt'];
-	startDate_lesser?: ['FuzzyDateInt'];
+	startDate_greater?: number;
+	startDate_lesser?: number;
 	startDate_like?: string;
-	endDate_greater?: ['FuzzyDateInt'];
-	endDate_lesser?: ['FuzzyDateInt'];
+	endDate_greater?: number;
+	endDate_lesser?: number;
 	endDate_like?: string;
 	format_in?: MediaFormat[];
 	format_not?: MediaFormat;
@@ -176,4 +179,4 @@ export type PageInfo = {
 	lastPage?: number;
 	/** If there is another page */
 	hasNextPage?: boolean;
-  };
+};
