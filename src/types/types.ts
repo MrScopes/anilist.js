@@ -114,12 +114,10 @@ export type MediaSort =
 | 'FAVOURITES'
 | 'FAVOURITES_DESC';
 
-/** Media type enum, anime or manga. */
 export type MediaType = 
 | 'ANIME'
 | 'MANGA';
 
-/** The format the media was released in */
 export type MediaFormat = 
 | 'TV'
 | 'TV_SHORT'
@@ -132,7 +130,6 @@ export type MediaFormat =
 | 'NOVEL'
 | 'ONE_SHOT';
 
-/** The current releasing status of the media */
 export type MediaStatus = 
 | 'FINISHED'
 | 'RELEASING'
@@ -140,13 +137,9 @@ export type MediaStatus =
 | 'CANCELLED'
 | 'HIATUS';
 
-/** Date object that allows for incomplete date values (fuzzy) */
 export type FuzzyDate = {
-	/** Numeric Year (2017) */
 	year?: number;
-	/** Numeric Month (3) */
 	month?: number;
-	/** Numeric Day (24) */
 	day?: number;
 };
 
@@ -156,7 +149,6 @@ export type MediaSeason =
 | 'SUMMER'
 | 'FALL';
 
-/** Source type the media was adapted from */
 export type MediaSource = 
 | 'ORIGINAL'
 | 'MANGA'
@@ -169,14 +161,9 @@ export type MediaSource =
 | 'ANIME';
 
 export type PageInfo = {
-	/** The total number of items */
 	total?: number;
-	/** The count on a page */
 	perPage?: number;
-	/** The current page */
 	currentPage?: number;
-	/** The last page */
 	lastPage?: number;
-	/** If there is another page */
 	hasNextPage?: boolean;
 };

@@ -23,7 +23,6 @@ anilist.js was originally created for [AniSearch](https://github.com/MrScopes/An
         - `Client`
         - `Media`
         - `Character`
-    - You can access the custom typed interfaces via `Types.<>`
 - v1 -> v2
     - There's a lot of changes from v1 to v2. Some of the changes include:
         - anilist.js now operates under an MIT license.

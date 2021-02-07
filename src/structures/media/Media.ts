@@ -18,7 +18,6 @@ export class Media extends Base {
     chapters?: number;
     volumes?: number;
 
-    /** Represents an AniList Anime or Manga. */
     constructor(data: any, client: Client) {
         super(client, data.id);
 
@@ -30,7 +29,6 @@ export class Media extends Base {
         if (data.volumes) this.volumes = data.volumes;
     }
 
-    /** Get some missing useful info. */
     async getMeta(): Promise<{
         description: string;
         status: MediaStatus;
@@ -84,12 +82,7 @@ export class Media extends Base {
         return (await this.client.utilities.APIRequest(MediaTags, { id: this.id })).tags;
     }
 
-    /**
-     * Get the current user's media entry id for this media.
-     * @param token the user token, defaults to client token.
-     */
-    async getMediaEntry(token?: string): Promise<number> {
-        return (await this.client.utilities.APIRequest(MediaEntryQuery, { id: this.id }, token || this.client.token)).mediaListEntry;  
+    async getMediaEntry(APIToken?: string): Promise<number> {
+        return (await this.client.utilities.APIRequest(MediaEntryQuery, { id: this.id }, APIToken || this.client.token)).mediaListEntry;  
     }
-
 }

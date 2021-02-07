@@ -10,14 +10,12 @@ export class Character extends Base {
         native: string;
     }
     
-    /** Represents an AniList Anime or Manga. */
     constructor(data: any, client: Client) {
         super(client, data.id);
 
         this.name = data.name;
     }
 
-    /** Get some missing useful info. */
     async getMeta(): Promise<{
         description: string;
         image: {
