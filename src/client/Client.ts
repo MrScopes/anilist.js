@@ -1,15 +1,15 @@
 import { Utilities } from './Utilities';
 
-import { Media, MediaSearchResults, MediaSearchVariables } from '..';
+import { Character, Media } from '..';
+import { MediaSearchResults } from '../structures/media/MediaSearchResults';
 
 import { MediaQuery, MediaSearchQuery } from '../queries/MediaQueries';
+import { CharacterQuery } from '../queries/CharacterQueries';
+import { MediaSearchVariables } from '../types/types';
 
 /** Represents an anilist.js Client. */
 export class Client {
-    /** The Client's token. */
     token?: string;
-
-    /** The Client's utilities. */
     utilities: Utilities;
 
     /**
@@ -40,5 +40,14 @@ export class Client {
     async searchMedia(variables: MediaSearchVariables) {
         const data = await this.utilities.APIRequest(MediaSearchQuery, variables);
         return new MediaSearchResults(data, this);
+    }
+
+    /**
+     * Gets an AniList Anime or Manga character.
+     * @param id The Character's ID.
+     */
+    async getCharacter(id: number) {
+        const data = await this.utilities.APIRequest(CharacterQuery, { id });
+        return new Character(data, this);
     }
 }

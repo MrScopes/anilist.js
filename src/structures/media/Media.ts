@@ -1,17 +1,16 @@
-import { Client, Genre, Tag } from '../..';
+import { Client } from '../..';
+import { Genre, Tag } from '../../types/types';
 
 import { MediaGenres, MediaStudios, MediaTags, MediaMeta, MediaEntryQuery } from '../../queries/MediaQueries';
 import { FuzzyDate, MediaFormat, MediaSeason, MediaStatus } from '../../types/types';
+import { Base } from '../Base';
 
-export class Media {
-    client: Client;
-
-    id: number;
+export class Media extends Base {
     title: { 
         romaji: string;
         english?: string;
         native?: string;
-        userPreferred: string
+        userPreferred: string;
     }
     format: MediaFormat;
     seasonYear: number;
@@ -21,9 +20,8 @@ export class Media {
 
     /** Represents an AniList Anime or Manga. */
     constructor(data: any, client: Client) {
-        this.client = client;
+        super(client, data.id);
 
-        this.id = data.id;
         this.title = data.title;
         if (data.format) this.format = data.format;
         if (data.seasonYear) this.seasonYear = data.seasonYear;
@@ -50,7 +48,6 @@ export class Media {
         return await this.client.utilities.APIRequest(MediaMeta, { id: this.id });
     }
 
-    /** Get this Media's studios. */
     async getStudios(): 
         Promise<{
             id: number;
@@ -74,12 +71,10 @@ export class Media {
         return studios;
     }
 
-    /** Get this Media's genres. */
     async getGenres(): Promise<Genre[]> {
         return (await this.client.utilities.APIRequest(MediaGenres, { id: this.id })).genres;
     }
 
-    /** Get this Media's tags. */
     async getTags(): 
         Promise<{
             name: Tag;

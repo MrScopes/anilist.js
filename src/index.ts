@@ -1,2 +1,6 @@
-export * from './structures/structures';
-export * from './types/types';
+// The main client
+export { Client } from './client/Client';
+
+// AniList primary types
+export { Media } from './structures/media/Media';
+export { Character } from './structures/character/Character';

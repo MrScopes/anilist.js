@@ -7,7 +7,6 @@
 	"author": "MrScopes",
 	"license": "MIT",
 	"dependencies": {
-		"node-fetch": "^2.6.1",
-		"tslib": "^2.1.0"
+		"node-fetch": "^2.6.1"
 	}
 }
