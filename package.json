@@ -1,0 +1,12 @@
+{
+    "name": "anilist.js",
+    "author": "MrScopes",
+    "version": "2.0.0",
+    "dependencies": {},
+    "devDependencies": {
+        "@types/node": "^16.9.0"
+    },
+    "scripts": {
+        "test": "ts-node test"
+    }
+}
