@@ -16,5 +16,5 @@ const client = new Client();
 	}
 	`, { id: 1 });
 
-	console.log(req);
+	console.log(req.data.Character.name);
 })();

@@ -13,12 +13,17 @@ export async function Request(query: string, variables: object) {
 	}
 
 	return new Promise<any>((resolve, reject) => {		
+		let buffer = '';
+
 		const req = https.request(options, res => {
 			res.on('error', error => reject(error));
 
-			res.on('data', data => {
-				resolve(data.toString());
-				console.log(`TEST: ${data.toString()}`);
+			res.on('data', (data) => {
+			  	buffer += data.toString();
+			});
+			
+			res.on('end', () => {
+			  	resolve(JSON.parse(buffer));
 			});
 		});
 
