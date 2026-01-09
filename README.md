@@ -37,6 +37,8 @@ const media = await builder.request();
 
 console.log(`${media.title?.english} has ${media.episodes} episodes.`);
 ```
+
+#### Mutations
 ```ts
 const builder = new MediaBuilder('MY API TOKEN')
     .getManga(85486)
@@ -73,6 +75,47 @@ if (media.isFavourite) {
 >        It's favourited by 9485 users. I'll also favourite it! 
 >        ...
 ```
+
+#### Query Builder
+A helpful utility for building graphql queries is built in and used internally.
+```ts
+const builder = new QueryBuilder()
+    .setRoot('query') // or 'mutation'
+
+    .addField('Media', { search: 'My Hero Academia', type: ':ANIME' }) // : in a string indicates GraphQL Enum
+    .addSubObject('Media', 'title', ['english', 'native', 'romaji']) // or just addSubField('...', 'title { english native romaji }')
+    .addSubField('Media', 'episodes')
+    .addSubField('Media', 'description')
+
+    .addField('Character', { id: 100 })
+    .addSubObject('Character', 'name', ['full', 'native'])
+    .addSubField('Character', 'age');
+
+const query = builder.build();
+
+/*
+query { 
+    Media(search: "My Hero Academia", type: ANIME) { 
+        title { 
+            english 
+            native 
+            romaji 
+        } 
+        episodes 
+        description 
+    } 
+     
+    Character(id: 100) { 
+        name { 
+            full 
+            native 
+        } 
+        age 
+        } 
+    }
+*/
+```
+
 # Error Handling
 Errors are simple to handle. Here's an example response object.
 ```ts
