@@ -11,8 +11,6 @@ test('MediaBuilder Anime by Title', async () => {
     
     const media = await builder.request();
 
-    console.log(media);
-
     assert.equal(media.id, 21459);
     assert.equal(media.title?.english, 'My Hero Academia');
 });

@@ -25,6 +25,11 @@ export class Builder<T>  {
         return this;
     }
 
+    protected addSubObject(name: string, subFields: string[]) {
+        this.queryBuilder.addSubObject(this.field, name, subFields);
+        return this;
+    }
+
     async request(token?: string): Promise<T> {
         const request = await APIRequest(this.queryBuilder.build(), token ?? this.token);
         return this.constructr ? new this.constructr!(request) : request;

@@ -39,7 +39,7 @@ export class MediaBuilder extends Builder<Media> {
         return this.addSubField('id');
     }
 
-    airingSchedule = () => this.addSubField('airingSchedule { nodes { airingAt episode id timeUntilAiring } }');
+    airingSchedule = () => this.addSubField('nodes { id airingAt episode timeUntilAiring }');
     autoCreateForumThread = () => this.addSubField('autoCreateForumThread');
     averageScore = () => this.addSubField('averageScore');
     bannerImage = () => this.addSubField('bannerImage');
@@ -90,36 +90,4 @@ export class MediaBuilder extends Builder<Media> {
     type = () => this.addSubField('type')
     updatedAt = () => this.addSubField('updatedAt');
     volumes = () => this.addSubField('volumes');
-
-    /*
-    async toggleFavourite(token?: string): Promise<{ isFavourite: boolean }> {
-        if (!this.mediaType) {
-            const builder = new MediaBuilder()
-                .getMedia(this.mediaID!)
-                .type();
-
-            const media = await builder.request();
-            this.mediaType = media.type as any;
-        }
-
-        if (!this.mediaID) {
-            const builder = new MediaBuilder()
-                .getMedia(this.mediaID!)
-                .type();
-
-            const media = await builder.request();
-            this.mediaType = media.type as any;
-            this.mediaID = media.id;
-        }
-
-        const builder = new MutationBuilder<{ isFavourite: boolean }>(this.token || token)
-            .setField(`ToggleFavourite(${this.mediaType!.toLowerCase()}id: ${this.mediaID})`)
-            .appendQuery('isFavourite');
-
-        const response = await builder.request(this.token || token);
-        
-        return response;
-    }
-    */
-
 }
