@@ -38,16 +38,16 @@ const media = await builder.request();
 console.log(`${media.title?.english} has ${media.episodes} episodes.`);
 ```
 ```ts
-const builder = new MediaBuilder()
+const builder = new MediaBuilder('MY API TOKEN')
     .getManga(85486)
     .title()
     .chapters()
     .volumes()
     .description()
-    .favourites()
     .staff()
     .startDate()
-    .endDate();
+    .endDate()
+    .isFavourite();
     
 const media = await builder.request();
 
@@ -56,16 +56,22 @@ console.log(`
     It's written by ${media.staff[0].name.full} (${media.staff.length} total staff members).
     It must have taken a while to write ${media.volumes} volumes and ${media.chapters} chapters.
     The story started on ${media.startDate.year}-${media.startDate.month}-${media.startDate.day} and ended on ${media.endDate.year}-${media.endDate.month}-${media.endDate.day}.
-    It's favourited by ${media.favourites} users. I'll also favourite it!
+    It's favourited by ${media.favourites} users.
 `);
-    
-await media.toggleFavourite('MY API TOKEN');
+
+if (media.isFavourite) {
+    console.log('I already have it favourited.');
+} else {
+    await media.toggleFavourite();
+    console.log(`I favourited ${media.title.english}.`);
+}
 
 >        Let's check Boku no Hero Academia!
 >        It's written by Kouhei Horikoshi (25 total staff members).
 >        It must have taken a while to write 42 volumes and 432 chapters.
 >        The story started on 2014-7-7 and ended on 2024-8-5.
 >        It's favourited by 9485 users. I'll also favourite it! 
+>        ...
 ```
 # Error Handling
 Errors are simple to handle. Here's an example response object.
