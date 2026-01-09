@@ -39,7 +39,7 @@ export class MediaBuilder extends Builder<Media> {
         return this.addSubField('id');
     }
 
-    airingSchedule = () => this.addSubField('nodes { id airingAt episode timeUntilAiring }');
+    airingSchedule = () => this.addSubField('airingSchedule nodes { id airingAt episode timeUntilAiring }');
     autoCreateForumThread = () => this.addSubField('autoCreateForumThread');
     averageScore = () => this.addSubField('averageScore');
     bannerImage = () => this.addSubField('bannerImage');
