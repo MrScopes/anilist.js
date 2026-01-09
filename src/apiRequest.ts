@@ -23,12 +23,13 @@ export async function APIRequest(query: string, token?: string): Promise<any> {
 }
 
 type Response = {
+	query?: string;
 	errors?: { 
-		message: string, 
-		status: number, 
+		message: string;
+		status: number;
 		locations: { 
-			line: number, 
-			column: number 
+			line: number; 
+			column: number; 
 		}[];
 		validation?: Record<string, string[]>;
 	}[];

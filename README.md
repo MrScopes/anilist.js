@@ -14,10 +14,9 @@ Everything is written in typescript and mostly typed out manually.
 Co-Pilot assisted with repitition, if there's any weird edge cases contact me.
 
 Overhead is extremely low (see [tests/overhead.ts](src/tests/overhead.ts))\
-Builder: 551.945ms total (5.519µs/iter)\
-vs\
-Manual requests: 402.614ms total (4.026µs/iter)\
-✔ Overhead: Builder pipeline vs Manual pipeline (100k iterations) (960.2914ms)\
+Builder pipeline overhead: 532.630ms total (5.326µs/iter)\
+Manual pipeline overhead: 357.486ms total (3.575µs/iter)\
+~**1.7 microseconds of extra work per request**, or about **<0.01% of a real HTTP request**.\
 This test is 100k iterations of having dummy data and using the builder vs manually using fetch.
 
 # Code
@@ -60,25 +59,25 @@ console.log(`
     It's favourited by ${media.favourites} users. I'll also favourite it!
 `);
     
-await media.favourite('MY API TOKEN');
+await media.toggleFavourite('MY API TOKEN');
 
 >        Let's check Boku no Hero Academia!
 >        It's written by Kouhei Horikoshi (25 total staff members).
 >        It must have taken a while to write 42 volumes and 432 chapters.
 >        The story started on 2014-7-7 and ended on 2024-8-5.
->        It's favourited by 9485 users. I'll also favourite it!
+>        It's favourited by 9485 users. I'll also favourite it! 
 ```
-
 # Error Handling
 Errors are simple to handle. Here's an example response object.
 ```ts
 type Response = {
+	query?: string;
 	errors?: { 
-		message: string, 
-		status: number, 
+		message: string;
+		status: number;
 		locations: { 
-			line: number, 
-			column: number 
+			line: number; 
+			column: number; 
 		}[];
 		validation?: Record<string, string[]>;
 	}[];

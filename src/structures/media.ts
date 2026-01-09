@@ -1,9 +1,9 @@
 import { Base } from './base.js';
 
 export class Media extends Base {
-    constructor(data: any) {
+    constructor(data: any, token?: string) {
         data = data.data.Media;
-        super(data);
+        super(data, token);
 
         for (const [key, value] of Object.entries(data)) {
             (this as any)[key] = value;

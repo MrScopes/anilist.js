@@ -2,78 +2,124 @@ import { Media } from '../structures/media.js';
 import { Builder } from './builder.js';
 
 export class MediaBuilder extends Builder<Media> {
+    override field = 'Media';
+
     constructor(token?: string) {
         super(Media, token);
-        this.root = 'query';
-        this.field = 'Media';
-        this.query = 'id';
+        this.queryBuilder.setRoot('query');
     }
 
     getAnime(search: string | number) {
         if (typeof search === 'string') {
-            return this.appendVariables({ search: search, type: ':ANIME' });
+            this.addField({ search: search, type: ':ANIME' });
+        } else {
+            this.addField({ id: search, type: ':ANIME' });
         }
 
-        return this.appendVariables({ id: search,type: ':ANIME' });
+        return this.addSubField('id');
     }
 
     getManga(search: string | number) {
         if (typeof search === 'string') {
-            return this.appendVariables({ search: search, type: ':MANGA' });
+            this.addField({ search: search, type: ':MANGA' });
+        } else {
+            this.addField({ id: search, type: ':MANGA' });
         }
 
-        return this.appendVariables({ id: search,type: ':MANGA' });
+        return this.addSubField('id');
     }
-    
-    airingSchedule = () => this.appendQuery(`airingSchedule { nodes { airingAt episode id timeUntilAiring } }`);
-    autoCreateForumThread = () => this.appendQuery('autoCreateForumThread');
-    averageScore = () => this.appendQuery('averageScore');
-    bannerImage = () => this.appendQuery('bannerImage');
-    chapters = () => this.appendQuery('chapters');
-    characters = () => this.appendQuery(`characters { nodes { id name { full } } }`);
-    countryOfOrigin = () => this.appendQuery('countryOfOrigin');
-    coverImage = () => this.appendQuery(`coverImage { extraLarge large medium color }`);
-    description = () => this.appendQuery('description');
-    duration = () => this.appendQuery('duration');
-    endDate = () => this.appendQuery('endDate { year month day }');
-    episodes = () => this.appendQuery('episodes');
-    externalLinks = () => this.appendQuery('externalLinks { id url site }');
-    favourites = () => this.appendQuery('favourites');
-    format = () => this.appendQuery('format');
-    genres = () => this.appendQuery('genres');
-    hashtags = () => this.appendQuery('hashtags');
-    isMal = () => this.appendQuery('isMal');
-    isAdult = () => this.appendQuery('isAdult');
-    isFavourite = () => this.appendQuery('isFavourite');
-    isFavouriteBlocked = () => this.appendQuery('isFavouriteBlocked');
-    isLicensed = () => this.appendQuery('isLicensed');
-    isLocked = () => this.appendQuery('isLocked');
-    isRecommendationBlocked = () => this.appendQuery('isRecommendationBlocked');
-    isReviewBlocked = () => this.appendQuery('isReviewBlocked');
-    meanScore = () => this.appendQuery('meanScore');
-    mediaListEntry = () => this.appendQuery(`mediaListEntry { completedAt { year month day } createdAt customLists hiddenFromStatusLists id media { id title { romaji english native userPreferred } } mediaId notes priority private progress progressVolumes repeat score startedAt { year month day } status updatedAt user { id name } userId }`);
-    nextAiringEpisode = () => this.appendQuery(`nextAiringEpisode { id airingAt episode timeUntilAiring }`);
-    popularity = () => this.appendQuery('popularity');
-    rankings = () => this.appendQuery(`rankings { id rank type year season allTime context }`);
-    recommendations = () => this.appendQuery(`recommendations { nodes { id rating media { id title { romaji english native userPreferred } } } }`)
-    relations = () => this.appendQuery(`relations { edges { relationType node { id title { romaji english native userPreferred } } } }`);
-    reviews = () => this.appendQuery(`reviews { nodes { id siteUrl summary rating score user { id name } } }`);
-    season = () => this.appendQuery('season');
-    seasonInt = () => this.appendQuery('seasonInt');
-    seasonYear = () => this.appendQuery('seasonYear');
-    siteUrl = () => this.appendQuery('siteUrl');
-    source = () => this.appendQuery('source');
-    staff = () => this.appendQuery(`staff { edges { role node { id age gender name { full native alternative } } } }`);
-    startDate = () => this.appendQuery('startDate { year month day }');
-    stats = () => this.appendQuery(`stats { scoreDistribution { score amount } statusDistribution { status amount } }`);
-    status = () => this.appendQuery('status');
-    streamingEpisodes = () => this.appendQuery(`streamingEpisodes { title thumbnail url site }`);
-    studios = () => this.appendQuery(`studios { edges { isMain favouriteOrder node { id name } } }`);
-    synonyms = () => this.appendQuery('synonyms');
-    tags = () => this.appendQuery(`tags { id name description category rank isMediaSpoiler isGeneralSpoiler isAdult }`);
-    title = () => this.appendQuery(`title { romaji english native userPreferred }`);
-    trending = () => this.appendQuery('trending');
-    type = () => this.appendQuery('type')
-    updatedAt = () => this.appendQuery('updatedAt');
-    volumes = () => this.appendQuery('volumes');
+
+    getMedia(search: string | number) {
+        if (typeof search === 'string') {
+            this.addField({ search: search });
+        } else {
+            this.addField({ id: search });
+        }
+
+        return this.addSubField('id');
+    }
+
+    airingSchedule = () => this.addSubField('airingSchedule { nodes { airingAt episode id timeUntilAiring } }');
+    autoCreateForumThread = () => this.addSubField('autoCreateForumThread');
+    averageScore = () => this.addSubField('averageScore');
+    bannerImage = () => this.addSubField('bannerImage');
+    chapters = () => this.addSubField('chapters');
+    characters = () => this.addSubField(`characters { nodes { id name { full } } }`);
+    countryOfOrigin = () => this.addSubField('countryOfOrigin');
+    coverImage = () => this.addSubField(`coverImage { extraLarge large medium color }`);
+    description = () => this.addSubField('description');
+    duration = () => this.addSubField('duration');
+    endDate = () => this.addSubField('endDate { year month day }');
+    episodes = () => this.addSubField('episodes');
+    externalLinks = () => this.addSubField(`externalLinks { id url site }`);
+    favourites = () => this.addSubField('favourites');
+    format = () => this.addSubField('format');
+    genres = () => this.addSubField('genres');
+    hashtags = () => this.addSubField('hashtags');
+    isMal = () => this.addSubField('isMal');
+    isAdult = () => this.addSubField('isAdult');
+    isFavourite = () => this.addSubField('isFavourite');
+    isFavouriteBlocked = () => this.addSubField('isFavouriteBlocked');
+    isLicensed = () => this.addSubField('isLicensed');
+    isLocked = () => this.addSubField('isLocked');
+    isRecommendationBlocked = () => this.addSubField('isRecommendationBlocked');
+    isReviewBlocked = () => this.addSubField('isReviewBlocked');
+    meanScore = () => this.addSubField('meanScore');
+    mediaListEntry = () => this.addSubField(`mediaListEntry { completedAt { year month day } createdAt customLists hiddenFromStatusLists id media { id title { romaji english native userPreferred } } mediaId notes priority private progress progressVolumes repeat score startedAt { year month day } status updatedAt user { id name } userId }`);
+    nextAiringEpisode = () => this.addSubField(`nextAiringEpisode { id airingAt episode timeUntilAiring }`);
+    popularity = () => this.addSubField('popularity');
+    rankings = () => this.addSubField(`rankings { id rank type year season allTime context }`);
+    recommendations = () => this.addSubField(`recommendations { nodes { id rating media { id title { romaji english native userPreferred } } } }`);
+    relations = () => this.addSubField(`relations { edges { relationType node { id title { romaji english native userPreferred } } } }`);
+    reviews = () => this.addSubField(`reviews { nodes { id siteUrl summary rating score user { id name } } }`);
+    season = () => this.addSubField('season');
+    seasonInt = () => this.addSubField('seasonInt');
+    seasonYear = () => this.addSubField('seasonYear');
+    siteUrl = () => this.addSubField('siteUrl');
+    source = () => this.addSubField('source');
+    staff = () => this.addSubField(`staff { edges { role node { id age gender name { full native alternative } } } }`);
+    startDate = () => this.addSubField('startDate { year month day }');
+    stats = () => this.addSubField(`stats { scoreDistribution { score amount } statusDistribution { status amount } }`);
+    status = () => this.addSubField('status');
+    streamingEpisodes = () => this.addSubField(`streamingEpisodes { title thumbnail url site }`);
+    studios = () => this.addSubField(`studios { edges { isMain favouriteOrder node { id name } } }`);
+    synonyms = () => this.addSubField('synonyms');
+    tags = () => this.addSubField(`tags { id name description category rank isMediaSpoiler isGeneralSpoiler isAdult }`);
+    title = () => this.addSubField(`title { romaji english native userPreferred }`);
+    trending = () => this.addSubField('trending');
+    type = () => this.addSubField('type')
+    updatedAt = () => this.addSubField('updatedAt');
+    volumes = () => this.addSubField('volumes');
+
+    /*
+    async toggleFavourite(token?: string): Promise<{ isFavourite: boolean }> {
+        if (!this.mediaType) {
+            const builder = new MediaBuilder()
+                .getMedia(this.mediaID!)
+                .type();
+
+            const media = await builder.request();
+            this.mediaType = media.type as any;
+        }
+
+        if (!this.mediaID) {
+            const builder = new MediaBuilder()
+                .getMedia(this.mediaID!)
+                .type();
+
+            const media = await builder.request();
+            this.mediaType = media.type as any;
+            this.mediaID = media.id;
+        }
+
+        const builder = new MutationBuilder<{ isFavourite: boolean }>(this.token || token)
+            .setField(`ToggleFavourite(${this.mediaType!.toLowerCase()}id: ${this.mediaID})`)
+            .appendQuery('isFavourite');
+
+        const response = await builder.request(this.token || token);
+        
+        return response;
+    }
+    */
+
 }
