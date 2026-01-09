@@ -13,7 +13,7 @@ Feel free to make an issue or contact me on discord with any questions.
 Everything is written in typescript and mostly typed out manually.
 Co-Pilot assisted with repitition, if there's any weird edge cases contact me.
 
-Overhead is extremely low (see [tests/overhead.ts](src/tests/overhead.ts))\
+Overhead is extremely low (see [tests/overhead.test.ts](tests/overhead.test.ts))\
 Builder pipeline overhead: 532.630ms total (5.326µs/iter)\
 Manual pipeline overhead: 357.486ms total (3.575µs/iter)\
 ~**1.7 microseconds of extra work per request**, or about **<0.01% of a real HTTP request**.\
