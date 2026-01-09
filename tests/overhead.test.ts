@@ -8,9 +8,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { performance } from "node:perf_hooks";
 
-import { MediaBuilder } from "../builders/mediaBuilder.js";
-import { APIRequest } from "../apiRequest.js";
-import { Media } from "../structures/media.js";
+import { MediaBuilder, APIRequest, Media } from 'anilist.js'
 
 // --- Fake GraphQL response (matches AniList-ish shape your Media constructor expects)
 const fakeResponse = {

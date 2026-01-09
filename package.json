@@ -2,34 +2,31 @@
   "name": "anilist.js",
   "version": "3.0.0",
   "type": "module",
-
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     }
   },
-
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
-
   "engines": {
     "node": ">=18"
   },
-
   "scripts": {
     "build": "tsc",
     "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
     "prepublishOnly": "npm run clean && npm run build",
-    "test": "npm run clean && npm run build && node --test dist/tests/tests.js",
-    "overhead": "npm run clean && npm run build && node --test dist/tests/overhead.js"
+    "test": "node --import tsx --test \"tests/**/*.test.ts\"",
+    "overhead": "node --import tsx --test \"tests/overhead.test.ts\""
   },
-
   "devDependencies": {
-    "typescript": "^5.4.0",
-    "@types/node": "^18.19.0"
+    "@types/node": "^18.19.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.4.0"
   }
 }
